@@ -21,6 +21,7 @@ ROPecker的防御策略依据了ROP攻击的两个特征：
 * ROP攻击通常会在代码段进行大幅度的跳转。
 
 ROPecker需要假设**DEP** (Data Execution Prevention) 机制打开。针对ROP攻击的特性进行了如下设计：
+
 1. 先对ROPecker保护和检测的相应程序进行一次离线的gadget分析，并且使用硬件上实现的**LBR** (last branch record) 寄存器记录代码执行流的branch信息。
 2. 在程序执行过程中，通过**sliding window**机制，即将不在代码当前执行片段周围的代码变为**不可执行**状态，一旦执行了不在**sliding window**中的代码就触发ROPecker对ROP攻击的分析机制。
 3. 分析机制基于离线的gadget分析结果，根据当前程序的过去和未来的执行进行仿真分析，如果发现执行流不符即判断程序受到了ROP攻击，强制终止程序，达到检测和防御的目的。
@@ -37,6 +38,7 @@ ROPecker是第一个可以针对所有形式ROP攻击的一种general的，不�
 这些攻击方法能够攻击目前比较成功的**KBouncer**，和上一小结介绍的**ROPecker**两种防御方法，说明了modern ROP攻击的危险性。
 
 文章分析了**KBouncer**防御ROP的原理：
+
 1. Call-Preceded原则，没有恶意的代码指令执行的时候，`ret`指令回到的地址的上一条指令一定是`call`。
 2. ROP的攻击一般都是由短的gadget组成的长串指令来执行的。
 
