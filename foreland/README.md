@@ -3,16 +3,16 @@
 ## 本章目录
 
 * [ROP前沿攻防](./README.md)
-    + [ROPecker-NDSS 2014](./ROPecker.md)
-    + [ROP is still dangerous-USENIX Security 2014](./ROP-is-still-dangerous.md)
-    + [Code Pointer Integrity-OSDI 2014](./Code-Pointer-Integrity.md)
-    + [Missing the Pointer-S&P 2015](./Missing-the-Pointer.md)
+    + [ROPecker - NDSS 2014](./ROPecker.md)
+    + [ROP is still dangerous - USENIX Security 2014](./ROP-is-still-dangerous.md)
+    + [Code Pointer Integrity - OSDI 2014](./Code-Pointer-Integrity.md)
+    + [Missing the Pointer - S&P 2015](./Missing-the-Pointer.md)
 
 ## 简要介绍
 
 本章内容包含数篇博客形式的文章，内容排序上是提出了一种防御策略，再提出一种攻击策略能够攻破之前的防御策略，一攻一防，再攻再放， 以实践和口语化的描述介绍了近期与ROP相关的安全领域顶会的成果，提炼其精华给读者。
 
-### ROPecker-NDSS 2014 摘要
+### ROPecker 摘要
 
 这篇文章发在安全领域顶会[NDSS 2014](http://www.internetsociety.org/doc/ropecker-generic-and-practical-approach-defending-against-rop-attacks)上。提出了ROPecker，一个针对ROP攻击的特点开发出的ROP攻击的检测和防御工具，在`Linux-x86`系统上实现。
 
@@ -27,7 +27,7 @@ ROPecker需要假设**DEP** (Data Execution Prevention) 机制打开。针对ROP
 
 ROPecker是第一个可以针对所有形式ROP攻击的一种general的，不需要源代码，二进制代码重写，并且非常有效率的防御机制。ROPecker的overhead对于CPU 2.6%，硬盘IO 1.56%，带宽 0.08%。
 
-### ROP is still dangerous-USENIX Security 2014 摘要
+### ROP is still dangerous 摘要
 
 这篇文章发在安全领域顶会[USENIX Security 2014](https://www.usenix.org/conference/usenixsecurity14/technical-sessions/presentation/carlini)上。对ROP问题进行了进一步研究，提出了3种全新的ROP攻击方法：
 * Call-Preceded ROP
@@ -42,7 +42,7 @@ ROPecker是第一个可以针对所有形式ROP攻击的一种general的，不�
 
 根据分析的防御原理，文章重点介绍了**History Flushing**方法能够通过大段的`NOP`的指令，绕过**KBouncer**的防御从而实现ROP攻击。文章提出一个观点：ROP的防御必须着眼于正常执行和ROP攻击执行的最基本的差别。
 
-### Code Pointer Integrity-OSDI 2014 摘要
+### Code Pointer Integrity 摘要
 
 这篇文章发在系统领域顶会[OSDI 2014](https://www.usenix.org/node/186160)上。本文首先和已经应用于工业上的**CFI** (Control Flow Integrity) 进行比较，CFI有粗粒度和细粒度两种，需要在安全性和性能上做出trade off，本文提出的CPI安全性和性能都更好。
 
@@ -58,7 +58,7 @@ ROPecker是第一个可以针对所有形式ROP攻击的一种general的，不�
 
 CPI对于未修改的C/C++代码的overhead为8.4%~10.5%，CPS的overhead为0.5%~1.9%。
 
-### Missing the Pointer-S&P 2015 摘要
+### Missing the Pointer 摘要
 
 这篇文章发在安全领域顶会[S&P 2015](http://www.ieee-security.org/TC/SP2015/program.html)上。
 上一节介绍的在2014年提出的CPI (Control Pointer Integrity) 作为一种新的防止控制流劫持的手段被提出，通过保护Code Pointer的方式防止攻击，性能表现优异，最大开销平均不超过10%。
