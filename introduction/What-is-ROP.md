@@ -9,3 +9,5 @@
 下图是通常的内存栈的layout。
 
 ![Call_stack_layout](./../resources/Call_stack_layout.png)
+
+关于 ROP 的实际入侵样例，可以参考[一步一步学ROP之linux_x86篇](http://drops.wooyun.org/tips/6597)，[一步一步学ROP之Android ARM 32位篇](http://drops.wooyun.org/papers/11390)。

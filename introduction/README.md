@@ -11,5 +11,3 @@
 * [ROP入门](./README.md)
     + [什么是ROP](./What-is-ROP.md)
     + [ROP的历史发展](./ROP-history.md)
-    + [x86 ROP样例]()
-    + [Android ARM ROP样例]()
