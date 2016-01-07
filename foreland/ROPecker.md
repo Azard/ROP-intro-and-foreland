@@ -42,5 +42,35 @@ sliding window的设计通过针对ROP攻击的特征，在保证对于ROP攻击
  
 *past payload detection*
 
-根据程序执行过程中获得的LBR(last branch record)寄存器中记录的对于上一个branch condition的判断数据，。
+根据程序执行过程中获得的LBR(last branch record)寄存器中记录的对于上一个branch condition的源地址和跳转地址的记录数据，ROPecker可以构造出程序过去的跳转流程并且对其进行检查。一旦发现如果对于<br />
+1. branch condition源地址的指令是一条indirect branch instruction<br />
+2. 目标地址指令指向一个gadget<br />
+这两个条件均不满足，ROPecker停止LBR检查并且查看追溯过的gadget的长度。如果长度过长，说明程序受到了ROP攻击。从而完成侦测于防御。
+
+*future payload detection*
+
+通过利用在offline preprocessor中构建的对于当前程序的IG database，ROPecker可以轻易分析出所有对于ret-based gadget的情况，并且得出程序是否已经被ROP攻击的结果。
+
+而对于jmp-based gadget，由于情况更为复杂，ROPecker会在运行时再对其进行分析。
+
+这也符合了Separate normal and worst case的思想
+
+
+![screenshot from 2016-01-07 17 49 14](https://cloud.githubusercontent.com/assets/7068001/12167412/fd4ffa32-b566-11e5-811e-43aa57149ef8.png)
+
+### ROPecker性能及特点
+
+**性能**
+
+ROPecker对于所有类型的ROP攻击都可以进行有效的侦测，并且不需要程序的源代码和对于程序二进制代码的重写。
+ROPecker在运行时非常高效，对于CPU的overhead为2.6%，disk I/O 为 1.56%，对于4kb HTTP communication仅为0.08%
+
+**特点**
+
+Make it fast。ROPecker在设计中保证了原本程序本身的性能，并没有增加太多的overhead。
+Use static analysis。通过offline preprocessor离线对程序进行分析，大幅提高了效率。
+Handle normal and worst cases separately。对于分析过程中的不同情况进行了分别处理。
+
+ROPecker针对了ROP攻击的特点，针对性的进行了防御，以很高的效率取得了非常高的效果。
+
 
