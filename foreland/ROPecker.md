@@ -67,9 +67,9 @@ ROPecker在运行时非常高效，对于CPU的overhead为2.6%，disk I/O 为 1.
 
 **特点**
 
-Make it fast。ROPecker在设计中保证了原本程序本身的性能，并没有增加太多的overhead。<br />
-Use static analysis。通过offline preprocessor离线对程序进行分析，大幅提高了效率。<br />
-Handle normal and worst cases separately。对于分析过程中的不同情况进行了分别处理。<br />
+*Make it fast* ROPecker在设计中保证了原本程序本身的性能，并没有增加太多的overhead。<br />
+*Use static analysis* 通过offline preprocessor离线对程序进行分析，大幅提高了效率。<br />
+*Handle normal and worst cases separately* 对于分析过程中的不同情况进行了分别处理。<br />
 
 ROPecker针对了ROP攻击的特点，针对性的进行了防御，以很高的效率取得了非常高的效果。
 
