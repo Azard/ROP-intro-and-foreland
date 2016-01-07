@@ -45,3 +45,13 @@ CPS保证了：
 2. 代码指针只能从前一个代码指针存储指令存储值的内存地址加载。
 
 这里符合**Make it fast, rather than general or powerful.** 原则,进一步降低了保护的范围，但速度上有明显的提升，从CPI开销的8.4-10.5%降低到了CPS的0.5-1.9%
+
+### 原则总结
+CPI主要遵循了以下几条原则：
+
+1. Make it fast, rather than general or powerful. 
+2. Handle normal and worst cases separately
+3. Use static analysis
+4. Safety first
+
+CPI保护了一部分指针，并针对这一部分进行单独的优化，保证了速度和安全性。静态分析完成了大部分的指针检测，使程序大部分的开销变低，只有少部分需要动态运行时检查。隔离的机制让安全性得到了保证。
