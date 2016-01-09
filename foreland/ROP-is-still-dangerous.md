@@ -4,8 +4,8 @@
 
 **名词定义：**
 
-* gadget：以 `ret` 结尾，指令数小于20 的汇编指令串
-* long sequence： 8个以上的连续执行的gadget
+* gadget: 以 `ret` 结尾，指令数小于20 的汇编指令串
+* long sequence: 8个以上的连续执行的gadget
 
 ## 三种全新的ROP攻击方式
 
@@ -73,7 +73,7 @@ _kBouncer_ 使用了 `LBR` ，检查最近的16个调用system call的分支。�
 
 #### 2. Hide the history
 
-** 第一部分Hiding history through LBR flushing **
+**第一部分Hiding history through LBR flushing**
 
 * A short flushing gadget: 简单的call-preceded的以ret结束的gadget，不修改所有的寄存器
 * A long termination gadget: 超过20个指令，长度长到让kBouncer检查的时候认为不是gadget的call-preceded gadget
@@ -84,7 +84,7 @@ _kBouncer_ 使用了 `LBR` ，检查最近的16个调用system call的分支。�
 
 下一步，就需要使用termination gadget。这样，可以把 `LBR` 中至少8个entry中的gadget的长度超过了20，可以说，termination gadget是用来让 _kBouncer_ 无法找到gadget-like的指令串。至于termination gadget之后的寄存器的状态是没有什么要求的，唯一的要求，就是在termination gadget执行后，我们仍然有指令流的控制权，可以说这个要求也是比较简单的。对于termination gadget，具体做的时候，还需要保证紧跟着termination gadget的一个没有问题、不进行攻击的指令集，同时要保证其中的指令操作不会修改memory和register。
 
-** 第二部分Hiding history through context switching **
+**第二部分Hiding history through context switching**
 
 由于LBR是在线程间共享的，所有还有一个简单的flush掉LBR的方法就是利用content switch。我们只要找到很多类似于下图的片段就可以轻松地用来flush `LBR`。
 
