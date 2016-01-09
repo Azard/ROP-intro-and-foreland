@@ -149,14 +149,12 @@ _ROPecker_ 原理参考[ROP-checker](./ROPecker.md)。
 
 攻击有几个阶段
 
-1. Initialization：插入一段termination gadget，让 _ROPecker_ 对 `LBR` 中gadget数量的监测失效。
-2. Loading Phase：首先把一个useful page载入executable set，这个page上的所有gadget都会立刻被preceded并且跟随一个termination gadget。当page fault发生的时候， _ROPecker_ 会检查 `LBR` ，如果他往后检查就会发现每个page跟随的termination gadget，如果向前，就会找到最开始加入的那个，所以就限制了 _ROPecker_ 对于page load gadget的数量的控制。
-3. Attack Phase：在useful page被载入进来之后就可以开始部署攻击了。因为之前的工作，所以useful page上的攻击是不会被发现的，并且重复以上三个阶段，就可以在多次攻击中完成攻击者最终想要做的攻击，这样使得每一次攻击的难度没那么大。
-4. History Hiding：最后，像对付 _kBouncer_ 一样，只需要flush掉 `LBR` 里的记录，就可以在下次 _ROPecker_ 正常工作之后，也不会被发现有ROP攻击。
-5. Segmenting the Attack Payload：
-由于要分段进行ROP攻击，所以需要合理地在每个page上放置有限数量的gadget。
-6. Selecting Pages to Load：
-由于executable set只能存有限量的page，最简单实用的方法就是每次从一个页上载入一个gadget，并且只载入一次。
+1. Initialization: 插入一段termination gadget，让 _ROPecker_ 对 `LBR` 中gadget数量的监测失效。
+2. Loading Phase: 首先把一个useful page载入executable set，这个page上的所有gadget都会立刻被preceded并且跟随一个termination gadget。当page fault发生的时候， _ROPecker_ 会检查 `LBR` ，如果他往后检查就会发现每个page跟随的termination gadget，如果向前，就会找到最开始加入的那个，所以就限制了 _ROPecker_ 对于page load gadget的数量的控制。
+3. Attack Phase: 在useful page被载入进来之后就可以开始部署攻击了。因为之前的工作，所以useful page上的攻击是不会被发现的，并且重复以上三个阶段，就可以在多次攻击中完成攻击者最终想要做的攻击，这样使得每一次攻击的难度没那么大。
+4. History Hiding: 最后，像对付 _kBouncer_ 一样，只需要flush掉 `LBR` 里的记录，就可以在下次 _ROPecker_ 正常工作之后，也不会被发现有ROP攻击。
+5. Segmenting the Attack Payload: 由于要分段进行ROP攻击，所以需要合理地在每个page上放置有限数量的gadget。
+6. Selecting Pages to Load: 由于executable set只能存有限量的page，最简单实用的方法就是每次从一个页上载入一个gadget，并且只载入一次。
 当然，也可以在操作得当的情况下，载入一个有多个useful gadget的页，这样即使 _ROPecker_ 的executable set只有一两页，也是可以实现攻击的。
 
 ## 结论
@@ -166,7 +164,7 @@ _ROPecker_ 原理参考[ROP-checker](./ROPecker.md)。
 作者发现了前人没有注意到的两个重点
 
 1. ROP攻击是可以只含有很短的gadget的
-2. ROP攻击可以都是call-preceded的。
+2. ROP攻击可以都是call-preceded的
 
 对于未来的ROP防御的研究，作者认为，防御不能只关注程序执行过程中的一部分历史，因为这样是肯定可以被攻击者通过其他方法给消除攻击证据的，ROP的防御必须针对所有ROP的特点，因为特定的防御方法都会有特定的evasion attack。
 
